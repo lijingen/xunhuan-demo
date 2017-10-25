@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+
+  <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+  <property name="LOG_HOME" value="/data/weblog/business/xunhuan-demo"/>
+
+  <!-- Handle JUL -->
+  <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+    <resetJUL>true</resetJUL>
+  </contextListener>
+
+  <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%date [%thread] [%file:%line] [%level %logger{0}] - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_HOME}/info.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LOG_HOME}/rolling/info.%d{yyyy-MM-dd}.%i.log.gz
+      </fileNamePattern>
+      <timeBasedFileNamingAndTriggeringPolicy
+        class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        <maxFileSize>512MB</maxFileSize>
+      </timeBasedFileNamingAndTriggeringPolicy>
+      <maxHistory>30</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <charset>UTF-8</charset>
+      <pattern>%date [%thread] [%file:%line] [%level %logger{0}] - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="async_info" class="ch.qos.logback.classic.AsyncAppender">
+    <appender-ref ref="info" />
+  </appender>
+
+  <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_HOME}/error.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LOG_HOME}/rolling/error.%d{yyyy-MM-dd}.%i.log.gz
+      </fileNamePattern>
+      <timeBasedFileNamingAndTriggeringPolicy
+        class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        <maxFileSize>512MB</maxFileSize>
+      </timeBasedFileNamingAndTriggeringPolicy>
+      <maxHistory>30</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <charset>UTF-8</charset>
+      <pattern>%date [%thread] [%file:%line] [%level %logger{0}] - %msg%n</pattern>
+    </encoder>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>WARN</level>
+    </filter>
+  </appender>
+
+  <logger name="com.yy.parkes" level="debug" />
+
+  <root level="info">
+    <appender-ref ref="stdout" />
+    <appender-ref ref="async_info"/>
+    <appender-ref ref="error"/>
+  </root>
+</configuration>
+

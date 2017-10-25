@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: xunhuan-demo
+  mybatis:
+      configuration:
+          map-underscore-to-camel-case: true
+          default-fetch-size: 100
+          default-statement-timeout: 30
+server:
+  port: 10201

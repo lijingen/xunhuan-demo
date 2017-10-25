@@ -1,0 +1,32 @@
+spring:
+  rabbitmq:
+    addresses: 61.147.186.64:5672
+    username: rabbitmqadmin
+    password: adminxEdMin5
+    virtual-host: wolfkill_dev
+    listener:
+      simple:
+        concurrency:  5
+
+  datasource:
+    url:  jdbc:mysql://113.108.231.185:6210/web_friendapp
+    username: web_account
+    password: LjsqBrWRYKXL
+    driver-class-name: com.mysql.jdbc.Driver
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://61.147.187.152:12000/eureka/
+
+parkes:
+  metrics:
+    app-name: xunhuan-activity
+    service-name: xuhuan-demo
+  thriftcenter:
+    center:
+      address: 58.215.180.234:2181,58.215.180.233:2181,221.228.86.216:2181
+      application: xh-demo
+mybatis:
+  mapper-locations: classpath*:com/yy/xunhuan/activity/demo/dao/gen/sqlmap/*Mapper.xml,com/yy/xunhuan/activity/demo/dao/sqlmap/*Mapper.xml
+  type-aliases-package: com.yy.xunhuan.activity.halloween.dao.gen.model
